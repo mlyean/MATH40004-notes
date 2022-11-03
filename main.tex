@@ -1,0 +1,174 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{commath}
+
+\title{MATH40004 -- Calculus Notes}
+\author{Ming Yean Lim}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Integration Formulas}
+
+\begin{enumerate}
+    \item Arc length
+    \begin{gather*}
+        \int_a^b \sqrt{1 + \left( \frac{\mathrm{d} y}{\mathrm{d} x} \right)^2} \, \mathrm{d} x \\
+        \int_{\theta_0}^{\theta_1} \sqrt{r^2 + \left( \frac{\mathrm{d} r}{\mathrm{d} \theta} \right)^2} \, \mathrm{d} \theta \\
+        \int_{t_0}^{t_1} \sqrt{\left( \frac{\mathrm{d} x}{\mathrm{d} t} \right)^2 + \left( \frac{\mathrm{d} y}{\mathrm{d} t} \right)^2 } \, \mathrm{d} t \\
+    \end{gather*}
+    \item Area (polar coordinates)
+    \begin{equation*}
+        \frac{1}{2} \int_{\theta_1}^{\theta_2} r^2 \, \mathrm{d} \theta
+    \end{equation*}
+    \item Volume of revolution (about $x$-axis)
+    \begin{equation*}
+        \int_a^b \pi y^2 \, \mathrm{d} x
+    \end{equation*}
+    \item Volume of revolution (about $y$-axis)
+    \begin{equation*}
+        \int_a^b 2 \pi x y \, \mathrm{d} x
+    \end{equation*}
+    \item Surface area of revolution (about $x$-axis)
+    \begin{equation*}
+        \int_a^b 2 \pi y \sqrt{1 + \left( \frac{\mathrm{d} y}{\mathrm{d} x} \right)^2} \, \mathrm{d} x
+    \end{equation*}
+    \item Center of mass (uniform density)
+    \begin{align*}
+        \overline{x} &= \frac{\int_a^b x y \, \mathrm{d} x}{\int_a^b y \, \mathrm{d} x} \\
+        \overline{y} &= \frac{\frac{1}{2} \int_a^b y^2 \, \mathrm{d} x}{\int_a^b y \, \mathrm{d} x}
+    \end{align*}
+\end{enumerate}
+
+\section{Fourier Transforms}
+
+\subsection{Definitions}
+
+Assuming $f$ decays at $\pm\infty$, the Fourier transform and inverse transform are given  respectively by
+\begin{align*}
+    \hat{f}(\omega) &= \int_{-\infty}^{\infty} f(x) e^{-i \omega x} \, \mathrm{d}x \\
+    f(x) &= \frac{1}{2 \pi} \int_{-\infty}^{\infty} \hat{f}(\omega) e^{i \omega x} \, \mathrm{d}\omega
+\end{align*}
+The Fourier cosine transform is given by
+\begin{align*}
+    \hat{f_c}(\omega) &= \int_{0}^{\infty} f(x) \cos{\omega x} \, \mathrm{d}x \\
+    f(x) &= \frac{2}{\pi} \int_{0}^{\infty} \hat{f_c}(\omega) \cos{\omega x} \, \mathrm{d}\omega
+\end{align*}
+For an even function $f$,  we have $\hat{f}(\omega) = 2 \hat{f_c}(\omega)$.
+The Fourier sine transform is given by
+\begin{align*}
+    \hat{f_s}(\omega) &= \int_{0}^{\infty} f(x) \sin{\omega x} \, \mathrm{d}x \\
+    f(x) &= \frac{2}{\pi} \int_{0}^{\infty} \hat{f_s}(\omega) \sin{\omega x} \, \mathrm{d}\omega
+\end{align*}
+For an odd function $f$,  we have $\hat{f}(\omega) = -2i \hat{f_s}(\omega)$.
+
+\subsection{Basic Properties}
+
+\begin{enumerate}
+    \item Linearity
+    \begin{align*}
+        \mathcal{F}\{a f(x) + b g(x)\} &= a \hat{f}(\omega) + b  \hat{g}(\omega) \\
+        \mathcal{F}^{-1}\{a \hat{f}(\omega) + b  \hat{g}(\omega)\} &= a f(x) + b g(x)
+    \end{align*}
+    \item If $a > 0$,
+    \begin{equation*}
+        \mathcal{F}\{f(ax)\} = \frac{1}{a} \hat{f}\left(\frac{\omega}{a}\right)
+    \end{equation*}
+    \item
+    \begin{equation*}
+        \mathcal{F}\{f(-x)\} = \hat{f}(-\omega)
+    \end{equation*}
+    \item Shifting in the time domain
+    \begin{equation*}
+        \mathcal{F}\{f(x - x_0)\} = e^{-i \omega x_0} \hat{f}(\omega)
+    \end{equation*}
+    \item Shifting in the frequency domain
+    \begin{equation*}
+        \mathcal{F}\{e^{i \omega_0 x} f(x)\} = \hat{f}(\omega - \omega_0)
+    \end{equation*}
+    \item Symmetry formula
+    \begin{equation*}
+        \mathcal{F}\{\hat{f}(x)\} = 2 \pi f(-\omega)
+    \end{equation*}
+    \item Derivatives
+    \begin{equation*}
+        \mathcal{F}\left\{\frac{\mathrm{d}^n f}{\mathrm{d} x^n}\right\} = (i \omega)^n \hat{f}(\omega)
+    \end{equation*}
+    \item
+    \begin{equation*}
+        \mathcal{F}\{x f(x)\} = i \hat{f}'(\omega)
+    \end{equation*}
+    \item Convolution theorem
+    \begin{equation*}
+        \mathcal{F}\{(f * g)(x)\} = \hat{f}(\omega) \hat{g}(\omega)
+    \end{equation*}
+    \item Energy theorem: For a real valued function $f$,
+    \begin{equation*}
+        \frac{1}{2\pi} \int_{-\infty}^{\infty} \abs{\hat{f}(\omega)}^2 \, \mathrm{d} \omega = \int_{-\infty}^{\infty} f(x)^2 \, \mathrm{d}x
+    \end{equation*}
+\end{enumerate}
+
+\subsection{Dirac Delta-Function}
+For any continuous function $f$ and $a \in \mathbb{R}$,
+\begin{equation*}
+    \int_{-\infty}^{\infty} f(x) \delta(x - a) \, \mathrm{d}x = f(a)
+\end{equation*}
+The Fourier transform of $\delta$ is $\mathcal{F}\{\delta(x)\} = 1$, therefore $\mathcal{F}^{-1}\{1\} = \delta(x)$.
+\begin{equation*}
+    \delta(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} e^{\pm i \omega x} \, \mathrm{d} \omega
+\end{equation*}
+
+\section{Ordinary Differential Equations}
+
+\subsection{Definitions}
+
+\begin{equation*}
+    G(x, f(x), f'(x), \ldots, f^{(k)}(x)) = 0
+\end{equation*}
+For an ODE, its \emph{order} is the order of the highest derivative, its \emph{degree} is the power of the highest derivative (when fractional powers have been removed). An ODE is \emph{linear} if $G$ is a linear function of $f$ and its derivatives.
+
+\subsection{First Order ODEs}
+
+\begin{enumerate}
+    \item Separable: Easy
+    \begin{equation*}
+        \frac{\mathrm{d}y}{\mathrm{d}x} = F(y) G(x)
+    \end{equation*}
+    \item Linear: Multiply both sides by an integrating factor $I(x) = e^{\int p(x) \, \mathrm{d}x}$
+    \begin{equation*}
+        \frac{\mathrm{d}y}{\mathrm{d}x} + p(x) y = q(x)
+    \end{equation*}
+    \item Dimensionally Homogeneous: Substitute $u = \frac{y}{x}$
+    \begin{equation*}
+        \frac{\mathrm{d}y}{\mathrm{d}x} = F\left(\frac{y}{x}\right)
+    \end{equation*}
+    \item Bernoulli: Substitute $u = y^{1 - n}$
+    \begin{equation*}
+        \frac{\mathrm{d}y}{\mathrm{d}x} + p(x) y = q(x) y^n
+    \end{equation*}
+\end{enumerate}
+
+\subsection{Second Order ODEs}
+If not immediately obvious, try $u = \frac{\mathrm{d}y}{\mathrm{d}x}$.
+
+\subsection{Linear ODEs}
+
+\subsubsection{Linear Independence}
+Consider a set of functions $\{y_i(x)\}_{i=1}^{k}$. If the Wronskian is nonzero, then the functions are linearly independent.
+
+\subsubsection{Linear ODEs with Constant Coefficients}
+Solve the homogeneous ODE, then guess a particular solution.
+
+\subsubsection{Euler-Cauchy Equation}
+\begin{equation*}
+    a_k x^k \frac{\mathrm{d}^k y}{\mathrm{d} x^k} + a_{k-1} x^{k-1} \frac{\mathrm{d}^{k-1} y}{\mathrm{d} x^{k-1}} + \ldots + a_1 x \frac{\mathrm{d}y}{\mathrm{d}x} + a_0 y = f(x)
+\end{equation*}
+Use the substitution $x = e^z$.
+
+\end{document}
